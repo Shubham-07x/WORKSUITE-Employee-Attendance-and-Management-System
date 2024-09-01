@@ -1,14 +1,19 @@
 {
+  "version": 2,
   "builds": [
     {
-      "src": "Server/package.json",
+      "src": "index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "Server/$1"
+      "src": "/(.*)",
+      "dest": "/index.js"
     }
-  ]
+  ],
+  "env": {
+    "JWT_SECRET": "@jwt_secret",
+    "DATABASE_URL": "@database_url"
+  }
 }
