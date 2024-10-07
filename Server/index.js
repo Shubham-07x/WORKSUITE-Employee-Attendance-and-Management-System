@@ -50,11 +50,6 @@ app.get('/', (req, res) => {
     res.send('Backend is running'); // Basic route to check server status
 });
 
-// Verify route
-app.get('/verify', verifyUser, (req, res) => {
-    return res.json({ Status: true, role: req.role, id: req.id }); // Return user role and ID if verified
-});
-
 // Start server
 const port = process.env.PORT || 3000; // Set port
 app.listen(port, () => {
