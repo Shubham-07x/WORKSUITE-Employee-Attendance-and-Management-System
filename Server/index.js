@@ -7,15 +7,18 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
-// Middleware
-app.use(cors({
-    origin: "https://worksuite-employee-attendance-and-management-system.vercel.app", // Allow requests from this origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow specified methods
-    credentials: true // Allow credentials (cookies, authorization headers, etc.)
-}));
+// CORS configuration
+const corsOptions = {
+    origin: "https://worksuite-employee-attendance-and-management-system.vercel.app",
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+    optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+};
+
+app.use(cors(corsOptions)); // Use the cors options defined above
 
 // Preflight request handling
-app.options('*', cors()); // Handle preflight requests for all routes
+app.options('*', cors(corsOptions)); // Handle preflight requests
 
 app.use(express.json()); // Parse JSON bodies
 app.use(cookieParser()); // Parse cookies
