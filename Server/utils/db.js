@@ -1,22 +1,21 @@
-import pg from "pg";
-import dotenv from "dotenv";
+import pg from 'pg';
+import dotenv from 'dotenv';
 
-const saltRounds = 10;
-dotenv.config();
+dotenv.config(); // Load environment variables from .env file
 
 const db = new pg.Client({
   connectionString: process.env.POSTGRES_URL,
   ssl: {
-    rejectUnauthorized: false,
-  }
+    rejectUnauthorized: false, // For self-signed certificates; adjust as necessary
+  },
 });
 
-db.connect(err =>{
-    if(err){
-        console.log("Error establishing Connection", err);
-    } else{
-        console.log("Connection Succesfull")
-    }
-});
+db.connect()
+  .then(() => {
+    console.log("Connection Successful");
+  })
+  .catch((err) => {
+    console.error("Error establishing Connection", err);
+  });
 
 export default db;
